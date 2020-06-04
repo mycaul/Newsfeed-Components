@@ -1,4 +1,4 @@
-/* This is the data we will be using to create our articles */
+/* This is the data we will be using to create our article components */
 /* Look over this data, then proceed to line 91*/
 const data = [
   {
@@ -88,26 +88,85 @@ const data = [
   }
 ];
 
-/* Step 1: Write a component called 'articleMaker' to create an article. You want your component to return markup like the template below: 
-
+/* []Step 1: Create a function that creates a component. You will want your component to look like the template below: 
+  
   <div class="article">
     <h2>{title of the article}</h2>
     <p class="date">{date of the article}</p>
-
     {three separate paragraph elements}
-
     <span class='expandButton'></span>
   </div>
-
-  Hint: You will need to use createElement more than once here!
-
-  Your function should take either an object as its one argument, or 5 separate arguments mapping to each piece of the data object above.
-
-  Step 2: Add an event listener to the expandButton span. This listener should toggle the class 'article-open' on the 'article' div.
-
-  Step 3: Don't forget to return something from your function!
-
-  Step 4: Outside your function, loop over the data. At each iteration you'll use your component to create an article and append it to the DOM inside the 'articles' div.
-
-  Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
+  [x]Hint: You will need to use createElement more than once here!
+  Your function should take either an [x]object as it's one argument, or 5 separate arguments mapping to each piece of the data object above.
+  [x]Step 2: Add an event listener to the expandButton span. This event listener should toggle the class 'article-open' on the 'article' div.
+  [x]Step 3: return the entire component.
+  [x]Step 4: Map over the data, creating a component for each oject and add each component to the DOM as children of the 'articles' div.
+  [x]Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 */
+
+function createArticle(objParameter){
+  //elements
+  const article = document.createElement('div');
+  const title = document.createElement('h2');
+  const date = document.createElement('p');
+  const firstParagraph = document.createElement('p');
+  const secondParagraph = document.createElement('p');
+  const thirdParagraph = document.createElement('p');
+  const buttonExpand = document.createElement('span');
+  //element structure
+  article.appendChild(title);
+  article.appendChild(date);
+  article.appendChild(firstParagraph);
+  article.appendChild(secondParagraph);
+  article.appendChild(thirdParagraph);
+  article.appendChild(buttonExpand);
+  //element classes
+  article.classList.add('article');
+  date.classList.add('date');
+  buttonExpand.classList.add('expandButton');
+  //set text content
+  title.textContent = objParameter.title;
+  date.textContent = objParameter.date;
+  firstParagraph.textContent = objParameter.firstParagraph;
+  secondParagraph.textContent = objParameter.secondParagraph;
+  thirdParagraph.textContent = objParameter.thirdParagraph;
+  buttonExpand.textContent = 'click for article';
+  //event listener to expandButton
+  buttonExpand.addEventListener("click", event =>{
+    article.classList.toggle('article-open');
+    console.log("button event: " + event.target);
+  })
+
+  //console.log("article: " + article);
+  return article;
+  
+}
+
+
+
+const articles = document.querySelector('.articles');
+//console.log("articles: " + articles);
+
+data.push({
+  title: 'Read this!',
+  date: '2/12/20',
+  firstParagraph: 'a;lksdjfa;lksjdf;aklsj',
+  secondParagraph: 'as;dkljfas kasd f asdkfasdf',
+  thirdParagraph: 'kjasdflaksdfjlkj'
+});
+
+data.map(data=>{
+  articles.appendChild(createArticle(data))
+})
+
+//createArticle(data);
+
+//console.log("objParameter.length: " + objParameter.length);
+//console.log("createArticle(objParameter): " + createArticle(data));
+// console.log("data: " + data);
+// console.log("data: " + data[0]);
+// console.log("data: " + data[0].title);
+// var myVar = objParameter[0].title;
+  // console.log("myVar: " + myVar);
+  //console.log("objParameter[0].title: " + objParameter[0].title)
+  //console.log("objParameter[0]: " + objParameter[0].title);
